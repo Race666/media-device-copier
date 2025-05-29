@@ -100,7 +100,7 @@ namespace MediaDeviceCopier
 				Console.Write($"{sourceFilePath}...copying");
 
 				var fileCopyResultInfo = device.CopyFile(fileCopyMode, sourceFilePath, targetFilePath, skipExisting ??= true);
-				if (fileCopyResultInfo.CopyStatus == FileCopyStatus.SkippedBecauseAlreadyExists)
+                if (fileCopyResultInfo.CopyStatus == FileCopyStatus.SkippedBecauseAlreadyExists)
 				{
 					bytesNotCopied += fileCopyResultInfo.Length;
 				}
@@ -130,8 +130,9 @@ namespace MediaDeviceCopier
 			}
 			if (!Directory.Exists(windowsFolder))
 			{
-				Console.WriteLine($"Windows folder does not exist: {windowsFolder}");
-				Environment.Exit(1);
+                Console.WriteLine($"Windows folder does not exist: {windowsFolder}. Creating folder...");
+				Directory.CreateDirectory(windowsFolder);
+				// Environment.Exit(1);
 			}
 		}
 
