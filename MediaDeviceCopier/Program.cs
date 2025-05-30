@@ -133,7 +133,7 @@ namespace MediaDeviceCopier
             {
                 var targetFilePath = Path.Combine(targetFolder, Path.GetFileName(sourceFilePath));
                 // Console.Write($"{sourceFilePath}...copying");
-                Console.Write($"{sourceFilePath} => {targetFolder} ");
+                Console.Write($"{sourceFilePath} => {targetFilePath} ");
 
                 var fileCopyResultInfo = device.CopyFile(fileCopyMode, sourceFilePath, targetFilePath, skipExisting ??= true);
                 if (fileCopyResultInfo.CopyStatus == FileCopyStatus.SkippedBecauseAlreadyExists)
