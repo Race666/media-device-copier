@@ -186,8 +186,27 @@ namespace MediaDeviceCopier
 
 			return _device.GetFiles(folder);
 		}
+        public string[] GetDirectories(string folder)
+        {
+            if (!_device.DirectoryExists(folder))
+            {
+                throw new DirectoryNotFoundException($"Folder not found: {folder}");
+            }
 
-		public static FileComparisonInfo GetComparisonInfo(MediaFileInfo mediaFileInfo)
+            return _device.GetDirectories(folder);
+        }
+		public void CreateDirectory(string folder)
+		{
+			try
+			{
+				_device.CreateDirectory(folder);
+            }
+			catch(Exception Ex)
+			{
+				throw new IOException(string.Format("Cannot create directory {folder}",Ex.Message));
+            }
+        }
+        public static FileComparisonInfo GetComparisonInfo(MediaFileInfo mediaFileInfo)
 		{
 			return new()
 			{
