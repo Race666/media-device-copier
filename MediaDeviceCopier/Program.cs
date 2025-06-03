@@ -47,7 +47,7 @@ namespace MediaDeviceCopier
 
             var FilterSubFolderPattern = new Option<string>(
 				 new[] { "--filter-subfolder-regex-pattern", "-p" },
-				description: "copy-recursive: Skip folders which matches the regular expression pattern."
+				description: "Optional: Include only subfolders which matches the regular expression pattern. Default copy all subfolders"
                 )
             {
                 IsRequired = false
@@ -109,7 +109,6 @@ namespace MediaDeviceCopier
         {
             var sw = Stopwatch.StartNew();
             var fileCopyMode = mode == "download" ? FileCopyMode.Download : FileCopyMode.Upload;
-
             using var device = GetDeviceByName(deviceName);
 
 			Regex? FilterFolderPattern=null;
@@ -236,8 +235,9 @@ namespace MediaDeviceCopier
 			if (!device.DirectoryExists(mtpFolder))
 			{
 				Console.WriteLine($"[{device.FriendlyName}] folder does not exist: {mtpFolder}");
-				Environment.Exit(1);
-			}
+				device.CreateDirectory(mtpFolder);
+                // Environment.Exit(1);
+            }
 			if (!Directory.Exists(windowsFolder))
 			{
                 Console.WriteLine($"Windows folder does not exist: {windowsFolder}.");
